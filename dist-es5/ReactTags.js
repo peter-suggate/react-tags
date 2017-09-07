@@ -97,7 +97,7 @@ var ReactTags = (function (superclass) {
     if (delimiters.indexOf(e.keyCode) > -1 || delimiterChars.indexOf(e.key) > -1) {
       this.addCurrentQuery(e)
     }
-console.log('handleKeyDown')
+
     // when backspace key is pressed and query is blank, delete the last tag
     if (e.keyCode === KEYS.BACKSPACE && query.length === 0 && this.props.allowBackspace) {
       this.deleteTag(this.props.tags.length - 1)
@@ -129,7 +129,6 @@ console.log('handleKeyDown')
 
   ReactTags.prototype.handleBlur = function handleBlur () {
     this.setState({ focused: false, selectedIndex: -1 })
-console.log('handleBlur')
 
     if (this.props.createTagOnFocusLost) {
       this.addCurrentQuery()
