@@ -90,7 +90,7 @@ var Input = (function (superclass) {
     return (
       React.createElement( 'div', { className: this.props.classNames.searchInput },
         React.createElement( 'input', {
-          ref: function (c) { this$1.input = c }, role: 'combobox', 'aria-autocomplete': 'list', 'aria-label': placeholder, 'aria-owns': listboxId, 'aria-activedescendant': selectedIndex > -1 ? selectedId : null, 'aria-expanded': expandable, placeholder: placeholder, style: { width: this.state.inputWidth } }),
+          ref: function (c) { this$1.input = c }, role: 'combobox', 'aria-autocomplete': 'list', 'aria-label': placeholder, 'aria-owns': listboxId, 'aria-activedescendant': selectedIndex > -1 ? selectedId : null, 'aria-expanded': expandable, placeholder: placeholder, onBlur: this.onBlur, style: { width: this.state.inputWidth } }),
         React.createElement( 'div', { ref: function (c) { this$1.sizer = c }, style: SIZER_STYLES }, sizerText)
       )
     )

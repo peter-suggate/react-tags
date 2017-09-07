@@ -78,7 +78,7 @@ class Input extends React.Component {
     return (
       React.createElement( 'div', { className: this.props.classNames.searchInput },
         React.createElement( 'input', {
-          ref: (c) => { this.input = c }, role: 'combobox', 'aria-autocomplete': 'list', 'aria-label': placeholder, 'aria-owns': listboxId, 'aria-activedescendant': selectedIndex > -1 ? selectedId : null, 'aria-expanded': expandable, placeholder: placeholder, style: { width: this.state.inputWidth } }),
+          ref: (c) => { this.input = c }, role: 'combobox', 'aria-autocomplete': 'list', 'aria-label': placeholder, 'aria-owns': listboxId, 'aria-activedescendant': selectedIndex > -1 ? selectedId : null, 'aria-expanded': expandable, placeholder: placeholder, onBlur: this.onBlur, style: { width: this.state.inputWidth } }),
         React.createElement( 'div', { ref: (c) => { this.sizer = c }, style: SIZER_STYLES }, sizerText)
       )
     )

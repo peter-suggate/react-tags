@@ -60,6 +60,31 @@ var ReactTags = (function (superclass) {
     this.setState({ query: query })
   };
 
+  ReactTags.prototype.addCurrentQuery = function addCurrentQuery (e) {
+    var ref = this.state;
+    var query = ref.query;
+    var selectedIndex = ref.selectedIndex;
+    if (query || selectedIndex > -1) {
+      if (e)
+        e.preventDefault()
+    }
+
+    if (query.length >= this.props.minQueryLength) {
+      // Check if the user typed in an existing suggestion.
+      var match = this.suggestions.state.options.findIndex(function (suggestion) {
+        return suggestion.name.search(new RegExp(("^" + query + "$"), 'i')) === 0
+      })
+
+      var index = selectedIndex === -1 ? match : selectedIndex
+
+      if (index > -1) {
+        this.addTag(this.suggestions.state.options[index])
+      } else if (this.props.allowNew) {
+        this.addTag({ name: query })
+      }
+    }
+  };
+
   ReactTags.prototype.handleKeyDown = function handleKeyDown (e) {
     var ref = this.state;
     var query = ref.query;
@@ -70,26 +95,9 @@ var ReactTags = (function (superclass) {
 
     // when one of the terminating keys is pressed, add current query to the tags.
     if (delimiters.indexOf(e.keyCode) > -1 || delimiterChars.indexOf(e.key) > -1) {
-      if (query || selectedIndex > -1) {
-        e.preventDefault()
-      }
-
-      if (query.length >= this.props.minQueryLength) {
-        // Check if the user typed in an existing suggestion.
-        var match = this.suggestions.state.options.findIndex(function (suggestion) {
-          return suggestion.name.search(new RegExp(("^" + query + "$"), 'i')) === 0
-        })
-
-        var index = selectedIndex === -1 ? match : selectedIndex
-
-        if (index > -1) {
-          this.addTag(this.suggestions.state.options[index])
-        } else if (this.props.allowNew) {
-          this.addTag({ name: query })
-        }
-      }
+      this.addCurrentQuery(e)
     }
-
+console.log('handleKeyDown')
     // when backspace key is pressed and query is blank, delete the last tag
     if (e.keyCode === KEYS.BACKSPACE && query.length === 0 && this.props.allowBackspace) {
       this.deleteTag(this.props.tags.length - 1)
@@ -121,6 +129,11 @@ var ReactTags = (function (superclass) {
 
   ReactTags.prototype.handleBlur = function handleBlur () {
     this.setState({ focused: false, selectedIndex: -1 })
+console.log('handleBlur')
+
+    if (this.props.createTagOnFocusLost) {
+      this.addCurrentQuery()
+    }
   };
 
   ReactTags.prototype.handleFocus = function handleFocus () {
@@ -211,6 +224,7 @@ ReactTags.propTypes = {
   classNames: PropTypes.object,
   allowNew: PropTypes.bool,
   allowBackspace: PropTypes.bool,
+  createTagOnFocusLost: PropTypes.bool,
   tagComponent: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.element
