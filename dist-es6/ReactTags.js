@@ -158,6 +158,11 @@ class ReactTags extends React.Component {
         key: i, tag: tag, classNames: this.state.classNames, onDelete: this.deleteTag.bind(this, i) })
     ))
 
+    const SuggestionsComponent = this.props.suggestionsComponent || Suggestions;
+
+    const suggestions =
+      React.createElement( SuggestionsComponent, Object.assign({}, this.state, { ref: (c) => { this.suggestions = c }, listboxId: listboxId, expandable: expandable, suggestions: this.props.suggestions, addTag: this.addTag.bind(this), maxSuggestionsLength: this.props.maxSuggestionsLength }))
+
     const expandable = this.state.focused && this.state.query.length >= this.props.minQueryLength
     const classNames = [this.state.classNames.root]
 
@@ -170,8 +175,7 @@ class ReactTags extends React.Component {
         ),
         React.createElement( 'div', {
           className: this.state.classNames.search, onBlur: this.handleBlur.bind(this), onFocus: this.handleFocus.bind(this), onChange: this.handleChange.bind(this), onKeyDown: this.handleKeyDown.bind(this) },
-          React.createElement( Input, Object.assign({}, this.state, { ref: (c) => { this.input = c }, listboxId: listboxId, autofocus: this.props.autofocus, autoresize: this.props.autoresize, expandable: expandable, placeholder: this.props.placeholder })),
-          React.createElement( Suggestions, Object.assign({}, this.state, { ref: (c) => { this.suggestions = c }, listboxId: listboxId, expandable: expandable, suggestions: this.props.suggestions, addTag: this.addTag.bind(this), maxSuggestionsLength: this.props.maxSuggestionsLength }))
+          React.createElement( Input, Object.assign({}, this.state, { ref: (c) => { this.input = c }, listboxId: listboxId, autofocus: this.props.autofocus, autoresize: this.props.autoresize, expandable: expandable, placeholder: this.props.placeholder }))
         )
       )
     )
@@ -190,7 +194,8 @@ ReactTags.defaultProps = {
   maxSuggestionsLength: 6,
   allowNew: false,
   allowBackspace: true,
-  tagComponent: null
+  tagComponent: null,
+  suggestionsComponent: null
 }
 
 ReactTags.propTypes = {
@@ -211,6 +216,10 @@ ReactTags.propTypes = {
   allowBackspace: PropTypes.bool,
   createTagOnFocusLost: PropTypes.bool,
   tagComponent: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.element
+  ]),
+  suggestionsComponent: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.element
   ])
