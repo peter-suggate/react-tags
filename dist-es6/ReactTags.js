@@ -160,9 +160,6 @@ class ReactTags extends React.Component {
 
     const SuggestionsComponent = this.props.suggestionsComponent || Suggestions;
 
-    const suggestions =
-      React.createElement( SuggestionsComponent, Object.assign({}, this.state, { ref: (c) => { this.suggestions = c }, listboxId: listboxId, expandable: expandable, suggestions: this.props.suggestions, addTag: this.addTag.bind(this), maxSuggestionsLength: this.props.maxSuggestionsLength }))
-
     const expandable = this.state.focused && this.state.query.length >= this.props.minQueryLength
     const classNames = [this.state.classNames.root]
 
@@ -176,7 +173,7 @@ class ReactTags extends React.Component {
         React.createElement( 'div', {
           className: this.state.classNames.search, onBlur: this.handleBlur.bind(this), onFocus: this.handleFocus.bind(this), onChange: this.handleChange.bind(this), onKeyDown: this.handleKeyDown.bind(this) },
           React.createElement( Input, Object.assign({}, this.state, { ref: (c) => { this.input = c }, listboxId: listboxId, autofocus: this.props.autofocus, autoresize: this.props.autoresize, expandable: expandable, placeholder: this.props.placeholder })),
-          suggestions
+          React.createElement( SuggestionsComponent, Object.assign({}, this.state, { ref: (c) => { this.suggestions = c }, listboxId: listboxId, expandable: expandable, suggestions: this.props.suggestions, addTag: this.addTag.bind(this), maxSuggestionsLength: this.props.maxSuggestionsLength }))
         )
       )
     )
