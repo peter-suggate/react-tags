@@ -175,7 +175,8 @@ class ReactTags extends React.Component {
         ),
         React.createElement( 'div', {
           className: this.state.classNames.search, onBlur: this.handleBlur.bind(this), onFocus: this.handleFocus.bind(this), onChange: this.handleChange.bind(this), onKeyDown: this.handleKeyDown.bind(this) },
-          React.createElement( Input, Object.assign({}, this.state, { ref: (c) => { this.input = c }, listboxId: listboxId, autofocus: this.props.autofocus, autoresize: this.props.autoresize, expandable: expandable, placeholder: this.props.placeholder }))
+          React.createElement( Input, Object.assign({}, this.state, { ref: (c) => { this.input = c }, listboxId: listboxId, autofocus: this.props.autofocus, autoresize: this.props.autoresize, expandable: expandable, placeholder: this.props.placeholder })),
+          suggestions
         )
       )
     )
