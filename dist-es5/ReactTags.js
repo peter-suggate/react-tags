@@ -237,4 +237,4 @@ ReactTags.propTypes = {
   ])
 }
 
-module.exports = ReactTags
+module.exports = { ReactTags, Suggestions }
