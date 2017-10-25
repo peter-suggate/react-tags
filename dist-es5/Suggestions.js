@@ -81,4 +81,4 @@ var Suggestions = (function (superclass) {
   return Suggestions;
 }(React.Component));
 
-module.exports = Suggestions
+module.exports = { Suggestions, markIt }

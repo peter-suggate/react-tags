@@ -170,7 +170,7 @@ var ReactTags = (function (superclass) {
         key: i, tag: tag, classNames: this$1.state.classNames, onDelete: this$1.deleteTag.bind(this$1, i) })
     ); })
 
-    var SuggestionsComponent = this.props.suggestionsComponent || Suggestions;
+    var SuggestionsComponent = this.props.suggestionsComponent || Suggestions.Suggestions;
 
     var expandable = this.state.focused && this.state.query.length >= this.props.minQueryLength
     var classNames = [this.state.classNames.root]
@@ -237,4 +237,4 @@ ReactTags.propTypes = {
   ])
 }
 
-module.exports = { ReactTags, Suggestions }
+module.exports = { ReactTags, Suggestions: Suggestions.Suggestions, markIt: Suggestions.markIt }

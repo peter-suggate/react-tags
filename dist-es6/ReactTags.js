@@ -4,7 +4,7 @@ const React = require('react')
 const PropTypes = require('prop-types')
 const Tag = require('./Tag')
 const Input = require('./Input')
-const Suggestions = require('./Suggestions')
+const { Suggestions, markIt } = require('./Suggestions')
 
 const KEYS = {
   ENTER: 13,
@@ -223,4 +223,4 @@ ReactTags.propTypes = {
   ])
 }
 
-module.exports = { ReactTags, Suggestions }
+module.exports = { ReactTags, Suggestions, markIt }

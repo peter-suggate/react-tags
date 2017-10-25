@@ -73,4 +73,4 @@ class Suggestions extends React.Component {
   }
 }
 
-module.exports = Suggestions
+module.exports = { Suggestions, markIt }
